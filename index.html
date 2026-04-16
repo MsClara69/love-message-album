@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS THEME --- */
+        :root {
+            --primary-love: #ff4d6d;
+            --soft-pink: #f6849b;
+            --deep-romance: #c9184a;
+            --text-dark: #590d22;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--soft-pink);
+            color: var(--text-dark);
+            text-align: center;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* --- THE RANDOM FLOATING HEARTS CONTAINER --- */
+        #heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allows clicking buttons through the background */
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: #ffc4d6;
+            opacity: 0.6;
+            user-select: none;
+            animation: floatUp var(--duration) linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(110vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-10vh) translateX(var(--drift)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* --- CONTENT STYLING (Kept the same) --- */
+        header, .message-box, .album-container, footer {
+            position: relative;
+            z-index: 1; /* Ensures content stays above floating hearts */
+        }
+
+        header { padding: 50px 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--deep-romance); margin: 0; }
+
+        .message-box { padding: 40px 20px; }
+        #message-display { font-size: 1.7rem; font-style: italic; min-height: 60px; margin-bottom: 20px; }
+        
+        .btn-love {
+            background-color: var(--primary-love);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            transition: 0.3s;
+        }
+
+        .album-container {
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 60px 0;
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .scroll-area {
+            position: relative;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        .album-wrapper {
+            display: flex;
+            overflow-x: auto;
+            gap: 25px;
+            padding: 20px 80px; 
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+        }
+        .album-wrapper::-webkit-scrollbar { display: none; }
+
+        .photo-card {
+            flex: 0 0 300px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            scroll-snap-align: center;
+        }
+
+        .photo-card img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
+
+        .nav-arrow {
+            position: absolute;
+            top: 55%;
+            transform: translateY(-50%);
+            background: var(--primary-love);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            border: none;
+            transition: 0.3s;
+        }
+        .arrow-left { left: 15px; }
+        .arrow-right { right: 15px; }
+
+        footer { padding: 40px; }
+    </style>
+</head>
+<body>
+
+    <div id="heart-container"></div>
+
+    <header>
+        <h1>For My Dearest Maldita</h1>
+    </header>
+
+    <section class="message-box">
+        <p id="message-display">Every day is better with you...</p>
+        <button class="btn-love" onclick="generateMessage()">New Message ❤️</button>
+    </section>
+
+    <section class="album-container">
+        <button class="nav-arrow arrow-left" onclick="scrollAlbum(-325)">←</button>
+        <button class="nav-arrow arrow-right" onclick="scrollAlbum(325)">→</button>
+
+        <div class="scroll-area">
+            <div class="album-wrapper" id="album">
+                <div class="photo-card"><img src="Images/1.jpeg"><p>Dont know pangilan basta samgyup</p></div>
+                <div class="photo-card"><img src="Images/2.jpeg"><p>Second Monthsary</p></div>
+                <div class="photo-card"><img src="Images/3.jpeg"><p>Hit and Run - Sabi ko</p></div>
+                <div class="photo-card"><img src="Images/4.jpeg"><p>I forgor anong yaon</p></div>
+                <div class="photo-card"><img src="Images/5.jpeg"><p>Gutom ka eh edi sa Shakeys</p></div>
+                <div class="photo-card"><img src="Images/6.jpeg"><p>DI BET ANG FOODS pero maganda place</p></div>
+                <div class="photo-card"><img src="Images/7.jpeg"><p>Eyyy First Monthsary Love you</p></div>
+                <div class="photo-card"><img src="Images/8.jpeg"><p>Cute ko dito</p></div>
+                <div class="photo-card"><img src="Images/9.jpeg"><p>Sayang ng 500 pero bagay sayo new damit</p></div>
+                <div class="photo-card"><img src="Images/10.jpeg"><p>Again anong ganap hahahaha</p></div>
+                <div class="photo-card"><img src="Images/11.jpeg"><p>Genshin is Life</p></div>
+                <div class="photo-card"><img src="Images/12.jpeg"><p>Sain ini? No gigibo?</p></div>
+                <div class="photo-card"><img src="Images/13.jpeg"><p>FarmPlate</p></div>
+                <div class="photo-card"><img src="Images/14.jpeg"><p>Samgyup Second Time </p></div>
+                <div class="photo-card"><img src="Images/15.jpeg"><p>Ayieeehh Valentines breakfast ampeg</p></div>
+                <div class="photo-card"><img src="Images/16.jpeg"><p>Saan to?</p></div>
+                <div class="photo-card"><img src="Images/17.jpeg"><p>Anyare sa rules ta? hahahaha</p></div>
+                <div class="photo-card"><img src="Images/18.jpeg"><p>Two pigs hahaha</p></div>
+                <div class="photo-card"><img src="Images/19.jpeg"><p>Gusto ko ulit magbalik dito</p></div>
+                <div class="photo-card"><img src="Images/20.jpeg"><p>First monthsary tumae siya hahahahaha</p></div>
+                <div class="photo-card"><img src="Images/21.jpeg"><p>Ceylon for Paperworks</p></div>
+                <div class="photo-card"><img src="Images/22.jpeg"><p>Matcha</p></div>
+                <div class="photo-card"><img src="Images/23.jpeg"><p>FarmPlate ulit</p></div>
+                <div class="photo-card"><img src="Images/24.jpeg"><p>Gutom ako Manginasal</p></div>
+                <div class="photo-card"><img src="Images/25.jpeg"><p>Gigibo ta digdi?</p></div>
+                <div class="photo-card"><img src="Images/26.jpeg"><p>Valentines - Samgyup</p></div>
+                <div class="photo-card"><img src="Images/27.jpeg"><p>Ceylon Part 2</p></div>
+                <div class="photo-card"><img src="Images/28.jpeg"><p>First Social Circuit</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer><p>I Love You ❤️</p></footer>
+
+    <script>
+        // --- RANDOM MESSAGE LOGIC (NO-REPEAT) ---
+        const loveMessages = [
+            "You are my favorite hello and my hardest goodbye 💕",
+            "I still get butterflies every time I think about you 🦋",
+            "You make ordinary days feel magical ✨",
+            "I love the way your eyes light up when you smile 😍",
+            "You are my safe place in this chaotic world 🏡",
+            "My heart feels at home with you ❤️",
+            "You are more beautiful than any sunset 🌅",
+            "I admire your strength more than you know 💪",
+            "You inspire me to be a better person every day 🌱",
+            "I’m so proud of the woman you are 🌸",
+            "You make my life infinitely better 💫",
+            "I love how your laugh fills the room 😂💕",
+            "You deserve the softest love and the happiest life 🌷",
+            "I would choose you in every lifetime 🔁❤️",
+            "You are my favorite notification 📱💖",
+            "I love the way you care about people 🫶",
+            "You are the most precious part of my world 🌍",
+            "Being with you feels like winning at life 🏆",
+            "I adore everything about you 🥰",
+            "You make my heart race in the best way 🏃‍♂️💓",
+            "You are my dream come true 🌙",
+            "I love how passionate you are 🔥",
+            "You make my bad days better instantly ☀️",
+            "I’m grateful for you every single day 🙏❤️",
+            "You are the reason I smile randomly 😄",
+            "I love holding your hand 🤝💕",
+            "You are my sunshine on cloudy days 🌤️",
+            "You are my favorite person, always 🥇",
+            "I love your kindness and your heart 💖",
+            "You make love feel effortless 💕",
+            "I cherish every memory with you 📸",
+            "You are stunning inside and out 🌹",
+            "You make my world brighter 🌟",
+            "I love your voice, I could listen forever 🎶",
+            "You make my heart feel full 💓",
+            "I admire your intelligence 🧠✨",
+            "You are so incredibly special to me 💎",
+            "I love the way you see the world 🌎",
+            "You are my happiness ❤️",
+            "You deserve endless love and peace 🌼",
+            "I love how you support me 🤍",
+            "You make everything feel possible 🚀",
+            "You are my best friend and my love 💑",
+            "I adore your beautiful mind 💭",
+            "You are stronger than you think 💪❤️",
+            "I love the way you care for others 🌷",
+            "You are irreplaceable 💞",
+            "You make life sweeter 🍯",
+            "I fall for you more every day 💘",
+            "You are my forever person ♾️",
+            "I love your gentle heart 💗",
+            "You are my greatest blessing 🙌",
+            "You make my heart smile 😊",
+            "I love every little thing about you 💕",
+            "You are pure magic ✨",
+            "I am so lucky to love you 🍀",
+            "You make my world complete 🌎❤️",
+            "I love your beautiful soul 🌸",
+            "You are everything I ever wanted 💖",
+            "You make my heart skip a beat 💓",
+            "I love your ambition and drive 🚀",
+            "You are my favorite thought 💭💕",
+            "You make love feel easy 💞",
+            "I love your confidence 😍",
+            "You are the best thing that’s ever happened to me 🥰",
+            "I love your adorable quirks 💫",
+            "You make my life colorful 🎨",
+            "You are my calm in every storm ⛈️❤️",
+            "I love the way you love 💕",
+            "You are my heart’s favorite place 🏡💓",
+            "I adore your laugh 😄",
+            "You make everything better just by being there 🤍",
+            "You are my sunshine always ☀️",
+            "I love your beautiful smile 😊",
+            "You are worth more than you know 💎",
+            "I love how thoughtful you are 🌷",
+            "You are my dream girl 💭❤️",
+            "I love the way you think 🧠",
+            "You make my heart feel safe 🔐💖",
+            "You are my favorite adventure 🌍",
+            "I love your warm hugs 🤗",
+            "You are so deeply loved 💕",
+            "I love how you understand me 🫶",
+            "You are my heart’s choice every time 💘",
+            "I love your determination 💪",
+            "You make my world softer 🌸",
+            "You are absolutely amazing 🌟",
+            "I love the way you shine ✨",
+            "You are my home ❤️",
+            "I love the way you look at me 😍",
+            "You make my life beautiful 🌷",
+            "You are my always and forever ♾️💕",
+            "I love how you care so deeply 💖",
+            "You are the most important person in my world 🌍",
+            "I love the way you exist in my life 💫",
+            "You are my heart’s greatest treasure 💎❤️",
+            "I will always choose you 💕",
+            "Free pinch and bite 😭",
+            "I love you more than naps. And I LOVE naps.",
+            "You’re the plot twist I never knew I needed 📖💕",
+            "I choose you. Like Pokémon."
+        ];
+
+        let unusedMessages = [...loveMessages];
+
+        function generateMessage() {
+            const display = document.getElementById('message-display');
+            if (unusedMessages.length === 0) unusedMessages = [...loveMessages];
+            const randomIndex = Math.floor(Math.random() * unusedMessages.length);
+            display.innerText = unusedMessages.splice(randomIndex, 1);
+        }
+
+        function scrollAlbum(amount) {
+            document.getElementById('album').scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        // --- NEW: RANDOM FLOATING HEARTS LOGIC ---
+        function createHeart() {
+            const container = document.getElementById('heart-container');
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.classList.add('floating-heart');
+            
+            // Random properties
+            const startX = Math.random() * 100; // Random horizontal start (0-100%)
+            const size = Math.random() * (30 - 10) + 10; // Random size (10px to 30px)
+            const duration = Math.random() * (15 - 5) + 5; // Random speed (5s to 15s)
+            const drift = (Math.random() - 0.5) * 200; // Random sideways drift
+
+            heart.style.left = startX + '%';
+            heart.style.fontSize = size + 'px';
+            heart.style.setProperty('--duration', duration + 's');
+            heart.style.setProperty('--drift', drift + 'px');
+
+            container.appendChild(heart);
+
+            // Remove heart after animation finishes to keep memory clean
+            setTimeout(() => { heart.remove(); }, duration * 1000);
+        }
+
+        // Create a new heart every 500ms
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
